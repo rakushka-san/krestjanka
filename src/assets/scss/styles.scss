@@ -1,6 +1,7 @@
 @import './fonts';
 @import './colors';
 @import './reset';
+@import './breakpoints';
 
 html {
 	font-size: 16px;
@@ -17,6 +18,7 @@ section {
 }
 
 .container {
+	padding: 0 1.25rem;
 	max-width: 1420px;
 	margin: auto;
 }
@@ -30,6 +32,10 @@ section {
 
 	&__accent {
 		color: $colorAccent;
+	}
+
+	@media screen and (max-width: $xs) {
+		font-size: 2.1875rem;
 	}
 }
 

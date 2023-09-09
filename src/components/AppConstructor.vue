@@ -28,12 +28,17 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+@import './../assets/scss/breakpoints';
+
 .constructor {
 	&__intro {
 		margin-top: 1.25rem;
 		font-size: 2rem;
 		line-height: 2.4375rem;
 		text-align: center;
+
+		@media screen and (max-width: $xs) {
+		}
 	}
 
 	&__content {
@@ -41,19 +46,37 @@ export default defineComponent({
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+
+		@media screen and (max-width: $md) {
+			flex-direction: column;
+		}
 	}
 }
 
 .extras {
 	width: 24.3rem;
+
+	@media screen and (max-width: $md) {
+		width: 100%;
+	}
 }
 
 .visualisation {
 	width: 30.4rem;
 	aspect-ratio: 243 / 259;
+
+	@media screen and (max-width: $md) {
+		margin-top: 1.25rem;
+		width: 100%;
+	}
 }
 
 .order {
 	width: 21.4rem;
+
+	@media screen and (max-width: $md) {
+		margin-top: 1.25rem;
+		width: 100%;
+	}
 }
 </style>
