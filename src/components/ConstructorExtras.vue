@@ -1,10 +1,12 @@
 <template>
 	<div class="extras">
 		<fieldset class="extras__list">
-			<ConstructorExtra class="extra" />
-			<ConstructorExtra class="extra" />
-			<ConstructorExtra class="extra" />
-			<ConstructorExtra class="extra" />
+			<ConstructorExtra
+				class="extra"
+				v-for="extra in allExtras"
+				:key="extra.id"
+				:extra="extra"
+			/>
 		</fieldset>
 	</div>
 </template>
@@ -13,11 +15,14 @@
 import { defineComponent } from 'vue'
 import ConstructorExtra from './ConstructorExtra.vue'
 
+import { mapGetters } from 'vuex'
+
 export default defineComponent({
 	name: 'ConstructorExtras',
 	components: {
 		ConstructorExtra,
 	},
+	computed: mapGetters(['allExtras']),
 })
 </script>
 

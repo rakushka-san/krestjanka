@@ -4,4 +4,4 @@ import store from './store'
 
 import './assets/scss/styles.scss'
 
-createApp(App).use(store).mount('#app')
+createApp(App).provide('$store', store).use(store).mount('#app')

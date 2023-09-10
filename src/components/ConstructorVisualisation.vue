@@ -6,33 +6,23 @@
 			class="visualisation__image"
 		/>
 		<img
-			src="./../assets/img/0.png"
-			alt="Extra Image"
-			class="visualisation__image visualisation__image_transparent"
-		/>
-		<img
-			src="./../assets/img/1.png"
+			v-for="extra in allExtras"
+			:key="extra.id"
+			:src="require(`./../assets/img/${extra.visImgSrc}`)"
 			alt="Extra Image"
 			class="visualisation__image"
-		/>
-		<img
-			src="./../assets/img/2.png"
-			alt="Extra Image"
-			class="visualisation__image"
-		/>
-		<img
-			src="./../assets/img/3.png"
-			alt="Extra Image"
-			class="visualisation__image"
+			:class="{ visualisation__image_transparent: !extra.checked }"
 		/>
 	</div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { mapGetters } from 'vuex'
 
 export default defineComponent({
 	name: 'ConstructorVisualisation',
+	computed: mapGetters(['allExtras']),
 })
 </script>
 
@@ -42,8 +32,8 @@ export default defineComponent({
 
 	&__image {
 		width: 100%;
-
 		position: absolute;
+		transition: 0.5s ease;
 
 		&_transparent {
 			opacity: 0.3;

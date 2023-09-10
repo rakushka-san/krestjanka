@@ -3,31 +3,44 @@
 		<input
 			class="extra__checkbox"
 			type="checkbox"
-			id="1"
+			:id="extra.id"
 			name="extra"
 			value="name"
+			:checked="extra.checked"
+			@click="toggleExtra(extra.id)"
 		/>
-		<label for="1"></label>
+		<label :for="extra.id"></label>
 		<div class="extra__image-container">
 			<img
-				src="./../assets/img/03.png"
+				:src="require(`./../assets/img/${extra.imgSrc}`)"
 				alt="Extra Image"
 				class="extra__image"
 			/>
 		</div>
-		<span class="extra__name"> Жестяные банки (10 шт.) </span>
+		<span class="extra__name"> {{ extra.name }} </span>
 		<div class="extra__price-block">
-			<span class="extra__price extra__price_old">7 990 ₽</span>
-			<span class="extra__price extra__price_current">7 990 ₽</span>
+			<span class="extra__price extra__price_old">{{ extra.price.old }} ₽</span>
+			<span class="extra__price extra__price_current"
+				>{{ extra.price.current }} ₽</span
+			>
 		</div>
 	</div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { IExtra } from '@/models/Extra'
+import { PropType, defineComponent } from 'vue'
+import { mapActions } from 'vuex'
 
 export default defineComponent({
 	name: 'ConstructorExtra',
+	props: {
+		extra: {
+			type: Object as PropType<IExtra>,
+			required: true,
+		},
+	},
+	methods: mapActions(['toggleExtra']),
 })
 </script>
 
@@ -49,6 +62,7 @@ export default defineComponent({
 		opacity: 0;
 
 		& + label {
+			margin-left: 0;
 			display: inline-flex;
 			align-items: center;
 			user-select: none;
@@ -72,14 +86,15 @@ export default defineComponent({
 	&__image-container {
 		width: 3.125rem;
 		height: 3.125rem;
+		aspect-ratio: 1 / 1;
 		display: flex;
 		justify-content: center;
 		align-items: center;
 	}
 
 	&__image {
-		max-width: 100%;
-		max-height: 100%;
+		width: 100%;
+		height: 100%;
 		object-fit: contain;
 	}
 
