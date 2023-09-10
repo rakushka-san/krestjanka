@@ -13,8 +13,8 @@ const extras: IExtra[] = [
 			current: '7 990',
 			old: '8 990',
 		},
-		imgSrc: '00.png',
-		visImgSrc: '0.png',
+		imgSrc: '0.png',
+		visImgSrc: 'vis-0.png',
 		checked: true,
 	},
 	{
@@ -24,8 +24,8 @@ const extras: IExtra[] = [
 			current: '7 990',
 			old: '8 990',
 		},
-		imgSrc: '01.png',
-		visImgSrc: '1.png',
+		imgSrc: '1.png',
+		visImgSrc: 'vis-1.png',
 		checked: false,
 	},
 	{
@@ -35,8 +35,8 @@ const extras: IExtra[] = [
 			current: '7 990',
 			old: '8 990',
 		},
-		imgSrc: '02.png',
-		visImgSrc: '2.png',
+		imgSrc: '2.png',
+		visImgSrc: 'vis-2.png',
 		checked: true,
 	},
 	{
@@ -46,8 +46,8 @@ const extras: IExtra[] = [
 			current: '7 990',
 			old: '8 990',
 		},
-		imgSrc: '03.png',
-		visImgSrc: '3.png',
+		imgSrc: '3.png',
+		visImgSrc: 'vis-3.png',
 		checked: false,
 	},
 ]

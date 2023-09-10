@@ -1,7 +1,7 @@
 <template>
 	<div class="visualisation">
 		<img
-			src="./../assets/img/34t.png"
+			src="./../assets/img/vis-34t.png"
 			alt="AK Image"
 			class="visualisation__image"
 		/>
