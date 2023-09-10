@@ -7,11 +7,13 @@
 			</h1>
 			<p class="constructor__intro">Вместе с полезными дополнениями</p>
 		</header>
-		<div class="constructor__content">
-			<ConstructorExtras class="extras" />
-			<ConstructorVisualisation />
-			<ConstructorOrder class="order" />
-		</div>
+		<form method="post" action="#" @submit.prevent="submitForm($event)">
+			<div class="constructor__content">
+				<ConstructorExtras class="extras" />
+				<ConstructorVisualisation />
+				<ConstructorOrder class="order" />
+			</div>
+		</form>
 	</section>
 </template>
 
@@ -24,6 +26,49 @@ import ConstructorOrder from './ConstructorOrder.vue'
 export default defineComponent({
 	name: 'AppConstructor',
 	components: { ConstructorExtras, ConstructorVisualisation, ConstructorOrder },
+	methods: {
+		submitForm(event: Event) {
+			if (!this.checkForm()) {
+				return
+			}
+
+			const form = event.target as HTMLFormElement
+			const formData = new FormData(form)
+			for (let input of formData.entries()) {
+				console.log(input[0], input[1])
+			}
+
+			this.$store.commit('updateName', '')
+			this.$store.commit('updatePhone', '')
+			this.$store.commit('emptyChecked')
+			this.$store.commit('selectDefaultConfiguration')
+
+			this.$store.commit('showModal')
+		},
+		checkForm() {
+			this.$store.commit('emptyError')
+
+			if (!this.checkName()) {
+				this.$store.commit('error', 'Укажите корректное имя.')
+				return false
+			}
+
+			if (!this.checkPhone()) {
+				this.$store.commit('error', 'Укажите корректный номер телефона.')
+				return false
+			}
+
+			return true
+		},
+		checkName() {
+			const re = /^[А-Я][а-яё]*$/
+			return re.test(this.$store.getters.name)
+		},
+		checkPhone() {
+			const re = /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/
+			return re.test(this.$store.getters.phone)
+		},
+	},
 })
 </script>
 

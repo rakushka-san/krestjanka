@@ -15,7 +15,7 @@ const extras: IExtra[] = [
 		},
 		imgSrc: '0.png',
 		visImgSrc: 'vis-0.png',
-		checked: true,
+		checked: false,
 	},
 	{
 		id: '1',
@@ -37,7 +37,7 @@ const extras: IExtra[] = [
 		},
 		imgSrc: '2.png',
 		visImgSrc: 'vis-2.png',
-		checked: true,
+		checked: false,
 	},
 	{
 		id: '3',
@@ -60,11 +60,26 @@ const extrasModule: Module<any, any> = {
 		allExtras(state: State) {
 			return state.extras
 		},
+		checkedExtras(state: State) {
+			return state.extras.filter(extra => extra.checked)
+		},
+		extrasPrice(state: State, getters) {
+			let extrasPrice = 0
+			getters.checkedExtras.forEach((extra: IExtra) => {
+				extrasPrice += Number(extra.price.current.replace(' ', ''))
+			})
+			return extrasPrice
+		},
 	},
 	mutations: {
 		toggleChecked(state: State, id: string) {
 			const index = state.extras.findIndex(extra => extra.id === id)
 			state.extras[index].checked = !state.extras[index].checked
+		},
+		emptyChecked(state: State) {
+			state.extras.forEach(extra => {
+				extra.checked = false
+			})
 		},
 	},
 	actions: {

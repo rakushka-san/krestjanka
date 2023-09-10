@@ -5,7 +5,7 @@
 			type="checkbox"
 			:id="extra.id"
 			name="extra"
-			value="name"
+			:value="extra.id"
 			:checked="extra.checked"
 			@click="toggleExtra(extra.id)"
 		/>

@@ -1,7 +1,7 @@
 <template>
 	<div class="visualisation">
 		<img
-			src="./../assets/img/vis-34t.png"
+			:src="require(`./../assets/img/${selectedConfiguration.visImgSrc}`)"
 			alt="AK Image"
 			class="visualisation__image"
 		/>
@@ -22,7 +22,7 @@ import { mapGetters } from 'vuex'
 
 export default defineComponent({
 	name: 'ConstructorVisualisation',
-	computed: mapGetters(['allExtras']),
+	computed: mapGetters(['allExtras', 'selectedConfiguration']),
 })
 </script>
 

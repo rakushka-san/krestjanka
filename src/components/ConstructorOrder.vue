@@ -5,27 +5,29 @@
 			class="order__configuration"
 			name="configuration"
 			id="configuration"
+			@change="selectConfiguration(parseValue($event))"
 		>
-			<option value="15">15 литров без ТЭНа</option>
-			<option value="15t">15 литров с ТЭНом</option>
-			<option value="20">20 литров без ТЭНа</option>
-			<option value="20t">20 литров с ТЭНом</option>
-			<option value="26">26 литров без ТЭНа</option>
-			<option value="26t">26 литров с ТЭНом</option>
-			<option value="34">34 литра без ТЭНа</option>
-			<option value="34t">34 литра с ТЭНом</option>
+			<option
+				v-for="configuration in allConfigurations"
+				:key="configuration.id"
+				:value="configuration.id"
+				:selected="configuration.id === selectedConfiguration.id"
+			>
+				{{ configuration.name }}
+			</option>
 		</select>
 		<div class="order__total">
 			<span class="order__total-heading">Итого:</span>
-			<span class="order__total-price">11 000 ₽</span>
+			<span class="order__total-price">{{ totalPrice }} ₽</span>
 		</div>
-		<form action="#" class="order__form">
+		<div class="order__form">
 			<input
 				class="order__input"
 				type="text"
 				name="name"
 				id="name"
 				placeholder="Имя"
+				v-model.trim="name"
 			/>
 			<input
 				class="order__input"
@@ -33,20 +35,58 @@
 				name="phone"
 				id="phone"
 				placeholder="+7 (___)-___-__-__"
+				v-model.trim="phone"
 			/>
-		</form>
+		</div>
 		<p class="order__hint">
 			Менеджеры свяжутся с вами в ближайшее время для уточнения деталей заказа
 		</p>
-		<button class="order__button">Заказать</button>
+		<button type="submit" class="order__button">Заказать</button>
+		<p v-if="error">{{ error }}</p>
 	</div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { mapActions, mapGetters } from 'vuex'
 
 export default defineComponent({
 	name: 'ConstructorOrder',
+	computed: {
+		...mapGetters(['allConfigurations', 'selectedConfiguration', 'error']),
+		totalPrice() {
+			const totalPrice: Number =
+				this.$store.getters.extrasPrice + this.$store.getters.configurationPrice
+			const totalPriceString = totalPrice.toString()
+			return totalPriceString.replace(
+				totalPriceString.slice(-3),
+				' ' + totalPriceString.slice(-3)
+			)
+		},
+		name: {
+			get() {
+				return this.$store.getters.name
+			},
+			set(newName: string) {
+				this.$store.commit('updateName', newName)
+			},
+		},
+		phone: {
+			get() {
+				return this.$store.getters.phone
+			},
+			set(newPhone: string) {
+				this.$store.commit('updatePhone', newPhone)
+			},
+		},
+	},
+	methods: {
+		...mapActions(['selectConfiguration']),
+		parseValue(event: Event) {
+			const { target } = event
+			return (target as HTMLSelectElement)?.value
+		},
+	},
 })
 </script>
 

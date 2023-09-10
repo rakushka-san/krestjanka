@@ -6,6 +6,7 @@
 					src="./../assets/img/cross.png"
 					alt="Close Modal"
 					class="modal__close"
+					@click="hideModal()"
 				/>
 				<slot></slot>
 			</div>
@@ -15,9 +16,11 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { mapMutations } from 'vuex'
 
 export default defineComponent({
 	name: 'AppModal',
+	methods: mapMutations(['hideModal']),
 })
 </script>
 

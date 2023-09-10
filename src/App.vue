@@ -4,7 +4,7 @@
 			<AppConstructor />
 		</div>
 	</main>
-	<AppModal v-if="false">
+	<AppModal v-if="showModal">
 		<AppOrderConfirm />
 	</AppModal>
 </template>
@@ -14,10 +14,12 @@ import { defineComponent } from 'vue'
 import AppConstructor from './components/AppConstructor.vue'
 import AppModal from './components/AppModal.vue'
 import AppOrderConfirm from './components/AppOrderConfirm.vue'
+import { mapGetters } from 'vuex'
 
 export default defineComponent({
 	name: 'App',
 	components: { AppConstructor, AppModal, AppOrderConfirm },
+	computed: mapGetters(['showModal']),
 })
 </script>
 
